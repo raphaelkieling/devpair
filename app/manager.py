@@ -4,11 +4,15 @@ import sys
 
 
 class Manager():
-    def __init__(self, logger: Logger, path_repository=None):
+    def __init__(self, logger: Logger, path_repository=None, origin='origin'):
         self.PREFIX_CLI = "pair/"
+        self.origin = origin
         self.repository = Repo(path_repository, search_parent_directories=True)
         self.path_repository = path_repository
         self.logger = logger
+        
+    def _get_remote(self):
+        return self.repository.remote(self.origin)
 
     def _safe_branch_checker(self):
         self.logger.debug(f"It's using the path: {self.path_repository}")
@@ -32,7 +36,7 @@ class Manager():
         self.logger.debug('Fetching data')
 
         if self.repository.active_branch.is_remote():
-            self.repository.remote().fetch()
+            self._get_remote().fetch()
 
         first_time = False
 
@@ -48,12 +52,14 @@ class Manager():
 
         if self.repository.active_branch.is_remote():
             self.logger.debug("Pulling")
-            self.repository.remote().pull(self.repository.active_branch.name)
+            self._get_remote().pull(
+                self.repository.active_branch.name
+            )
 
         if len(self.repository.remotes):
             self.logger.debug("Pushing")
             self.repository.git.push(
-                '--set-upstream', self.repository.remote().name, branch_name)
+                '--set-upstream', self._get_remote().name, branch_name)
 
         if first_time:
             self.logger.info(
@@ -81,7 +87,7 @@ class Manager():
         if self.repository.active_branch.is_remote():
             self.logger.debug("Pushing")
             self.repository.git.push(
-                '--set-upstream', self.repository.remote().name, self.repository.active_branch.name)
+                '--set-upstream', self._get_remote().name, self.repository.active_branch.name)
 
     def run_done(self):
         is_safe = self._safe_branch_checker()
@@ -101,8 +107,8 @@ class Manager():
 
         if self.repository.active_branch.is_remote():
             self.logger.debug("Fetching and pulling the data")
-            self.repository.remote().fetch()
-            self.repository.remote().pull()
+            self._get_remote().fetch()
+            self._get_remote().pull()
 
         self.logger.debug("Merging with the pair branch")
         self.repository.git.merge(pair_branch, no_ff=True, no_commit=True)
@@ -114,7 +120,7 @@ class Manager():
             self.logger.debug("Deleting pair branch from the remote environment")
 
             self.repository.git.push(
-                self.repository.remote().name,
+                self._get_remote().name,
                 '--delete',
                 pair_branch
             )
