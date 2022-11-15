@@ -36,15 +36,16 @@ if you have any doubt
 pair --help
 ```
 
-### Recommendation
+### Recommendations
 
 - Before the pair programming
-    - define the end of the session. How many time do you want pair?
-    - define the break time.
-- Use a timer like. Ordered by preference, for some cases a mobile timer is enough.
+    - Define the end of the session. How many time do you want pair?
+    - Define the break time.
+- Use a `timer` like. Ordered by preference, for some cases a mobile timer is enough.
     - https://cuckoo.team/
     - https://double-trouble.wielo.co/
     - http://mobtimer.zoeetrope.com/
+- The `driver` need to share the screen avoiding to use tools like `vscode live share`, even they are good it can create some hard moments that you want to show the browser or create a quickly diagram. The preference is that the `driver` ever need to share the screen.
 - Antipatterns: https://tuple.app/pair-programming-guide/antipatterns
 
 
