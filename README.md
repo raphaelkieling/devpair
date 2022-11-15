@@ -37,7 +37,7 @@ pair --help
 
 ### Contributing
 
-Fork and create a branch from `main` with the pattern `feat/my-feature` and make a pull request with your proposal.
+Fork, create a branch from `main` with the pattern `feat/my-feature` and make a pull request with your proposal.
 
 ### Local env
 
