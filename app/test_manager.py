@@ -138,3 +138,9 @@ def test_should_delete_and_back_to_main_after_run_done(repo: Repo, logger: mock.
     logger.info.assert_called_with(
         "🌟 Done, continue with the git commit command."
     )
+
+
+# TODO: Create this test
+@pytest.mark.skip(reason="no way of currently testing this")
+def test_should_delete_and_back_to_main_after_run_done_but_without_remote_branch(repo: Repo, logger: mock.Mock):
+    pass
