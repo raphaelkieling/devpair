@@ -21,7 +21,7 @@ def start(ctx):
     """
         Start a new session inside the current branch.
     """
-    
+
     verbose = ctx.obj['VERBOSE']
     m.set_verbose(verbose)
     m.run_start()

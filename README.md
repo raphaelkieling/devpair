@@ -41,6 +41,9 @@ pair/main $ devpair done
 
 main $ git commit -m "feat: created hello world feature"
 main $ git push
+
+# Dev B again
+pair/main $ devpair done # just to clear the house. 
 ```
 
 if you have any doubt
