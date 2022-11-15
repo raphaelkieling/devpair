@@ -21,19 +21,26 @@ pip install devpair
 
 ### Example of use
 
-```sh
-# - Dev A
-devpair start
-# Make some code changes
-devpair next
+```bash
+# Dev A
+main $ devpair start
+pair/main $ echo "hello" > welcome.txt
+mob/main $ devpair next
 
-# - Dev B
-devpair start
-# Receive the Dev A changes and make changes
-devpair next
+# Dev B
+main $ devpair start
+pair/main $ cat welcome.txt # shows "hello"
+pair/main $ echo " world" >> welcome.txt
+pair/main $ devpair next
 
-# ... and so on until someone make a
-devpair done
+# Dev A again
+pair/main $ devpair start
+pair/main $ cat welcome.txt # shows "hello world"
+pair/main $ echo "!" >> welcome.txt
+pair/main $ devpair done
+
+main $ git commit -m "feat: created hello world feature"
+main $ git push
 ```
 
 if you have any doubt
