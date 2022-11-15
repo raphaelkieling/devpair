@@ -15,3 +15,6 @@ dist: clear-dist
 
 publish-test: dist
 	python -m twine upload --repository testpypi --skip-existing dist/*
+
+publish: dist
+	python -m twine upload --repository pypi --skip-existing dist/*

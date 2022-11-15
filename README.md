@@ -14,7 +14,7 @@ It's a tool based on [mob](https://mob.sh/). In the end the goal is the same, ma
 For now it's only possible to download the version to test.
 
 ```
-pip install -i https://test.pypi.org/simple/ devpair
+pip install devpair
 ```
 
 ### Example of use
@@ -74,6 +74,9 @@ python -m localdevpair ...
 ### Publishing
 
 ```sh
-# it's using twine $HOME/.pypirc
+# it's using twine $HOME/.pypirc [testpypi]
 make publish-test
+
+# it's using twine $HOME/.pypirc [pypi]
+make publish
 ```
