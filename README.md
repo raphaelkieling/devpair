@@ -4,9 +4,10 @@
 
 ## Pair
 
-> The tool is under development.
+🖊️ The tool is under development.
 
 It's a tool based on [mob](https://mob.sh/). In the end the goal is the same, make the pair programming more easier than make a lot of `git add, git commit, git push, git pull` during a pair session.
+
 
 ## Install
 
@@ -34,6 +35,13 @@ if you have any doubt
 ```
 pair --help
 ```
+
+### Recommendation
+
+- Before the pair programming
+    - define the end of the session. How many time do you want pair?
+    - define the break time.
+
 
 ### Contributing
 
