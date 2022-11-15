@@ -6,15 +6,15 @@
 
 > The tool is under development.
 
-It's a tool based on [mob](https://mob.sh/). In the end the goal is the same, make the pair programming more easier than make a lot of `git add, git commit, git push, git pull`.
+It's a tool based on [mob](https://mob.sh/). In the end the goal is the same, make the pair programming more easier than make a lot of `git add, git commit, git push, git pull` during a pair session.
 
 ### Why?
 
-I do not agree with the mob principle `no dependencies`. It's good, but it create a lot of code for something that already exist. Making hard to mantain, mainly for new devs that are willing to contribute.
+I do not agree with the mob principle, `no dependencies`. It's good, but it create a lot of code for something that already exist. Making hard to mantain, mainly for new devs that are willing to contribute.
 
-Also i want to explore the integration with anothers tools with a plugin system.
+Also, explore new ways to improve and integrate this idea another tools.
 
-### Example
+### Example of use
 
 ```sh
 # - Dev A
@@ -29,6 +29,12 @@ pair next
 
 # ... and so on until someone make a
 pair done
+```
+
+if you have any doubt
+
+```
+pair --help
 ```
 
 ### Contributing
