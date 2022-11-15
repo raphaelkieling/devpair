@@ -4,7 +4,7 @@
 
 ## Dev Pair
 
-[![Python Test](https://github.com/raphaelkieling/pair/actions/workflows/push.yml/badge.svg?branch=main)](https://github.com/raphaelkieling/pair/actions/workflows/push.yml)
+[![Python Test](https://github.com/raphaelkieling/pair/actions/workflows/push.yml/badge.svg)](https://github.com/raphaelkieling/pair/actions/workflows/push.yml)
 
 🖊️ The tool is under development.
 
