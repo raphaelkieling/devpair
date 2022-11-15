@@ -25,7 +25,7 @@ pip install devpair
 # Dev A
 main $ devpair start
 pair/main $ echo "hello" > welcome.txt
-mob/main $ devpair next
+pair/main $ devpair next
 
 # Dev B
 main $ devpair start
