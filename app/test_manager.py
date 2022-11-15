@@ -13,6 +13,8 @@ def create_repo(tmpdir: str) -> Repo:
 
     repo =  Repo.init(repo_path)
     repo.active_branch.rename("master")
+
+    # It's added to allow github workflow to create a more realistic git repository
     repo.config_writer().set_value("user", "name", "myusername").release()
     repo.config_writer().set_value("user", "email", "myemail").release()
 
