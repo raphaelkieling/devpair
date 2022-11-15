@@ -13,6 +13,9 @@ def create_repo(tmpdir: str) -> Repo:
 
     repo =  Repo.init(repo_path)
     repo.active_branch.rename("master")
+    repo.config_writer().set_value("user", "name", "myusername").release()
+    repo.config_writer().set_value("user", "email", "myemail").release()
+
     return repo
 
 
