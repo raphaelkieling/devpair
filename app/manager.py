@@ -107,20 +107,20 @@ class Manager():
         self.logger.debug("Merging with the pair branch")
         self.repository.git.merge(pair_branch, no_ff=True, no_commit=True)
 
-        for branch in self.repository.branches:
-            if pair_branch != branch.name:
+        for ref in self.repository.remotes.origin.refs:
+            if pair_branch not in ref.name:
                 continue
 
-            self.logger.debug(
-                "Deleting pair branch from the local and remote environment")
+            self.logger.debug("Deleting pair branch from the remote environment")
 
-            if branch.is_remote():
-                self.repository.git.push(
-                    self.repository.remote().name,
-                    '--delete',
-                    pair_branch
-                )
+            self.repository.git.push(
+                self.repository.remote().name,
+                '--delete',
+                pair_branch
+            )
 
+        if pair_branch in self.repository.heads:
+            self.logger.debug("Deleting pair branch from the local environment")
             self.repository.heads[pair_branch].delete(
                 self.repository, pair_branch, force=True)
 
