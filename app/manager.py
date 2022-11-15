@@ -114,6 +114,6 @@ class Manager():
                     pair_branch
                 )
 
-            self.repository.heads[pair_branch].delete(self.repository, pair_branch)
+            self.repository.heads[pair_branch].delete(self.repository, pair_branch, force=True)
 
         self.logger.info("🌟 Done, continue with the git commit command.")
