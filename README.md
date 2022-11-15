@@ -11,7 +11,11 @@ It's a tool based on [mob](https://mob.sh/). In the end the goal is the same, ma
 
 ## Install
 
-Working to let you install through pip. If you really want to use it, feel free to clone and run the `make local-env` that will allow will to run `pythom -m devpair ...`
+For now it's only possible to download the version to test.
+
+```
+pip install -i https://test.pypi.org/simple/ devpair
+```
 
 ### Example of use
 
