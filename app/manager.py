@@ -6,9 +6,12 @@ class Manager():
     def __init__(self, logger: Logger, path_repository=None):
         self.PREFIX_CLI = "pair/"
         self.repository = Repo(path_repository)
+        self.path_repository = path_repository
         self.logger = logger
 
     def _safe_branch_checker(self):
+        self.logger.debug(f"It's using the path: {self.path_repository}")
+
         if self.PREFIX_CLI not in self.repository.active_branch.name:
             self.logger.error(
                 "You need to be inside a pair/ branch before execute it."
