@@ -8,11 +8,9 @@
 
 It's a tool based on [mob](https://mob.sh/). In the end the goal is the same, make the pair programming more easier than make a lot of `git add, git commit, git push, git pull` during a pair session.
 
-### Why?
+## Install
 
-I do not agree with the mob principle, `no dependencies`. It's good, but it create a lot of code for something that already exist. Making hard to mantain, mainly for new devs that are willing to contribute.
-
-Also, explore new ways to improve and integrate this idea another tools.
+Working to let you install through pip. If you really want to use it, feel free to clone and run the `make local-env` that will allow will to run `pythom -m pair ...`
 
 ### Example of use
 
