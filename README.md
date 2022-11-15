@@ -17,7 +17,7 @@ Working to let you install through pip. If you really want to use it, feel free 
 
 ```sh
 # - Dev A
-pair start
+devpair start
 # Make some code changes
 pair next
 
@@ -41,6 +41,11 @@ pair --help
 - Before the pair programming
     - define the end of the session. How many time do you want pair?
     - define the break time.
+- Use a timer like. Ordered by preference, for some cases a mobile timer is enough.
+    - https://cuckoo.team/
+    - https://double-trouble.wielo.co/
+    - http://mobtimer.zoeetrope.com/
+- Antipatterns: https://tuple.app/pair-programming-guide/antipatterns
 
 
 ### Contributing
