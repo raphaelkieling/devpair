@@ -2,7 +2,7 @@
     <img src="./logo.png" width="60px">
 </div>
 
-## Pair
+## Dev Pair
 
 🖊️ The tool is under development.
 
@@ -11,7 +11,7 @@ It's a tool based on [mob](https://mob.sh/). In the end the goal is the same, ma
 
 ## Install
 
-Working to let you install through pip. If you really want to use it, feel free to clone and run the `make local-env` that will allow will to run `pythom -m pair ...`
+Working to let you install through pip. If you really want to use it, feel free to clone and run the `make local-env` that will allow will to run `pythom -m devpair ...`
 
 ### Example of use
 
@@ -19,21 +19,21 @@ Working to let you install through pip. If you really want to use it, feel free 
 # - Dev A
 devpair start
 # Make some code changes
-pair next
+devpair next
 
 # - Dev B
-pair start
+devpair start
 # Receive the Dev A changes and make changes
-pair next
+devpair next
 
 # ... and so on until someone make a
-pair done
+devpair done
 ```
 
 if you have any doubt
 
 ```
-pair --help
+devpair --help
 ```
 
 ### Recommendations
@@ -63,6 +63,6 @@ python -m pytest
 
 # Set the develop
 python setup.py develop
-# Run the pair
-python -m pair ...
+# Run the devpair
+python -m devpair ...
 ```
