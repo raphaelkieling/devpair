@@ -16,7 +16,7 @@ if is_local_env:
 
 setup(
     name=project_name,
-    version='1.0.1',
+    version='1.0.2',
     author='Raphael Kieling',
     author_email='raphaelkieling98@gmail.com',
     description='Pair script that manage a pair programming session using git.',
