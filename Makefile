@@ -13,5 +13,5 @@ clear-dist:
 dist: clear-dist
 	python setup.py sdist bdist_wheel
 
-publish: dist
+publish-test: dist
 	python -m twine upload --repository testpypi --skip-existing dist/*

@@ -66,3 +66,10 @@ make local-env
 # Run the devpair
 python -m localdevpair ...
 ```
+
+### Publishing
+
+```sh
+# it's using twine $HOME/.pypirc
+make publish-test
+```
