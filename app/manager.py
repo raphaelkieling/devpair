@@ -5,12 +5,13 @@ import sys
 class Manager():
     def __init__(self, logger: Logger, path_repository=None):
         self.PREFIX_CLI = "pair/"
-        self.repository = Repo(path_repository)
+        self.repository = Repo(path_repository, search_parent_directories=True)
         self.path_repository = path_repository
         self.logger = logger
 
     def _safe_branch_checker(self):
         self.logger.debug(f"It's using the path: {self.path_repository}")
+        self.logger.debug(f"It's working inside: {self.repository.working_tree_dir}")
 
         if self.PREFIX_CLI not in self.repository.active_branch.name:
             self.logger.error(

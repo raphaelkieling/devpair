@@ -18,10 +18,11 @@ def cli(ctx, v):
 @cli.command()
 @click.pass_context
 def start(ctx):
-    verbose = ctx.obj['VERBOSE']
     """
         Start a new session inside the current branch.
     """
+    
+    verbose = ctx.obj['VERBOSE']
     m.set_verbose(verbose)
     m.run_start()
 
@@ -29,10 +30,11 @@ def start(ctx):
 @cli.command()
 @click.pass_context
 def next(ctx):
-    verbose = ctx.obj['VERBOSE']
     """
         Save everything and send to the next person.
     """
+
+    verbose = ctx.obj['VERBOSE']
     m.set_verbose(verbose)
     m.run_next()
 
@@ -40,9 +42,10 @@ def next(ctx):
 @cli.command()
 @click.pass_context
 def done(ctx):
-    verbose = ctx.obj['VERBOSE']
     """
         Finish and put all the work in the original branch.
     """
+
+    verbose = ctx.obj['VERBOSE']
     m.set_verbose(verbose)
     m.run_done()

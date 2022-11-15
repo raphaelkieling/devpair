@@ -1,4 +1,5 @@
 import pytest
+import os
 from app.manager import Manager
 from git import Repo
 from unittest import mock
@@ -38,6 +39,19 @@ def test_should_create_new_branch_first_time_on_start_command(repo: Repo, logger
     logger.info.assert_called_with(
         "Done, branch 'pair/main' created, happy pair programming 😄"
     )
+
+
+def test_should_detect_repository_even_inside_child_folder(repo: Repo, logger: mock.Mock):
+    assert repo.active_branch.name == "main"
+
+    m = Manager(
+        path_repository=os.path.join(repo.working_dir, "child-folder"),
+        logger=logger
+    )
+
+    m.run_start()
+
+    assert repo.active_branch.name == "pair/main"
 
 
 def test_should_create_reuse_alread_create_branch_on_start_command(repo: Repo, logger: mock.Mock):
