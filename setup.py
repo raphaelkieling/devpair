@@ -6,7 +6,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
     requirements = fh.read()
 
 setup(
-    name='pair',
+    name='devpair',
     version='1.0',
     author='Raphael Kieling',
     author_email='raphaelkieling98@gmail.com',
@@ -17,9 +17,9 @@ setup(
     long_description_content_type="text/markdown",
     install_requires=[requirements],
     python_requires='>=3.5',
-    py_modules=['pair', 'app'],
+    py_modules=['devpair', 'app'],
     entry_points='''
         [console_scripts]
-        pair=pair:exec_cli
+        devpair=devpair:exec_cli
     '''
 )
