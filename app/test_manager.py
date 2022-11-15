@@ -1,13 +1,12 @@
 import pytest
 from app.manager import Manager
-from py._path.local import LocalPath
 from git import Repo
 from unittest import mock
 import shutil
 
 
 @pytest.fixture(name="repo")
-def create_repo(tmpdir: LocalPath) -> Repo:
+def create_repo(tmpdir: str) -> Repo:
     repo_path = tmpdir / "test_data"
     shutil.copytree("app/test_data", repo_path)
 

@@ -5,4 +5,13 @@ setup:
 	python -m pip install -r requirements.txt
 
 local-env:
-	python setup.py develop
+	APP_ENV=local python setup.py develop
+
+clear-dist:
+	rm -Rf dist devpair.egg* build localdevpair.egg*
+
+dist: clear-dist
+	python setup.py sdist bdist_wheel
+
+publish: dist
+	python -m twine upload --repository testpypi --skip-existing dist/*

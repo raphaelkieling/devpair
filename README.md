@@ -62,7 +62,7 @@ pyenv local 3.10.4
 python -m pytest
 
 # Set the develop
-python setup.py develop
+make local-env
 # Run the devpair
-python -m devpair ...
+python -m localdevpair ...
 ```
