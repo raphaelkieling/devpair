@@ -16,16 +16,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
   
-      - name: Run image
-        uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: 1.2.2
-  
       - name: Install dependencies
         run: |
-          python3 -m pip install --upgrade pip
-          poetry install
+          pip install --upgrade pip
+          pip install poetry
+          poetry install -v
 
       - name: Test with pytest
         run: |
-          python3 -m pytest
+          poetry run pytest

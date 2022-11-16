@@ -134,6 +134,10 @@ class Manager():
         self.logger.info("🌟 Done, continue with the git commit command.")
 
     def run_summary(self):
+        is_safe = self._safe_branch_checker()
+        if not is_safe:
+            return
+            
         all_track_items = []
         last_commit = None
         first_commit = None
