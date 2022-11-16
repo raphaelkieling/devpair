@@ -1,7 +1,7 @@
 from git import Repo
 from loguru import logger as Logger
+from datetime import datetime
 import sys
-
 
 class Manager():
     def __init__(self, logger: Logger, path_repository=None, origin='origin'):
@@ -132,3 +132,49 @@ class Manager():
                 self.repository, pair_branch, force=True)
 
         self.logger.info("🌟 Done, continue with the git commit command.")
+
+    def run_track(self):
+        # Ge all block of times
+        track_items = []
+        all_track_item = []
+
+        first_commit_committer = None
+        for item in list(self.repository.iter_commits(self.repository.active_branch.name, max_count=200)):
+            if first_commit_committer is None:
+                first_commit_committer = item
+
+            if item.committer.email != first_commit_committer.committer.email:
+                track_items.append({
+                    'committer': first_commit_committer.committer.email,
+                    'start': datetime.utcfromtimestamp(first_commit_committer.committed_date).strftime('%Y-%m-%d %H:%M:%S'),
+                    'end': datetime.utcfromtimestamp(item.committed_date).strftime('%Y-%m-%d %H:%M:%S')
+                })
+
+                first_commit_committer = item
+
+            all_track_item.append({
+                'committer': item.committer.email,
+                'start': datetime.utcfromtimestamp(item.committed_date).strftime('%Y-%m-%d %H:%M:%S'),
+                'end': datetime.utcfromtimestamp(item.committed_date).strftime('%Y-%m-%d %H:%M:%S')
+            })
+
+        # Group by user
+        track_items_per_committer = {}
+        for track in all_track_item:
+            if track['committer'] in track_items_per_committer:
+                track_items_per_committer[track['committer']].append(track)
+            else:
+                track_items_per_committer[track['committer']] = [track]
+
+        # Frequence
+        print("Frequence: ")
+        for user in track_items_per_committer:
+            total = len(track_items_per_committer[user])
+            fill_total = [""] * total
+            bar = "▇".join(fill_total)
+            print('     {user: <25}'.format(user=user), " |", bar, total)
+
+        print("Last Dev: ")
+        last_dev = all_track_item[-1]
+        print('     {user: <25}'.format(user=last_dev['committer']), " |",  last_dev['end'])
+            

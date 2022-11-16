@@ -49,3 +49,9 @@ def done(ctx):
     """
 
     ctx.obj['MANAGER'].run_done()
+
+
+@cli.command()
+@click.pass_context
+def track(ctx):
+    ctx.obj['MANAGER'].run_track()
