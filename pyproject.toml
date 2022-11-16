@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "devpair"
-version = "1.1.1"
+version = "1.1.2"
 description = "Pair script that manage a pair programming session using git."
 authors = ["raphael.kieling <raphael.kieling@telus.com>"]
 license = "MIT"
@@ -18,3 +18,6 @@ pytest = "^7.2.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+devpair = "devpair:exec_cli"
