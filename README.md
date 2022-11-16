@@ -61,7 +61,6 @@ main $ git push
 # Dev B again
 pair/main $ devpair done # just to clear the house. 
 
-
 # Any Dev
 pair/main $ devpair summary # print a summary
 
