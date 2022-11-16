@@ -55,6 +55,18 @@ main $ git push
 
 # Dev B again
 pair/main $ devpair done # just to clear the house. 
+
+
+# Any Dev
+pair/main $ devpair track # print a summary
+
+Last Dev: 
+     dev-a@gmail.com  | 2022-11-16 00:40:00
+First Dev: 
+     dev-a@gmail.com  | 2022-11-15 17:55:19
+Frequence: 
+     dev-a@gmail.com         | ▇▇ 2
+     dev-b@gmail.com         | ▇ 1
 ```
 
 if you have any doubt
