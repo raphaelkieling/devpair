@@ -139,7 +139,11 @@ class Manager():
         all_track_item = []
 
         first_commit_committer = None
+        last_commit_time = None
         for item in list(self.repository.iter_commits(self.repository.active_branch.name, max_count=200)):
+            if last_commit_time is None or last_commit_time.committed_date < item.committed_date:
+                last_commit_time = item
+            
             if first_commit_committer is None:
                 first_commit_committer = item
 
@@ -175,6 +179,13 @@ class Manager():
             print('     {user: <25}'.format(user=user), " |", bar, total)
 
         print("Last Dev: ")
-        last_dev = all_track_item[-1]
-        print('     {user: <25}'.format(user=last_dev['committer']), " |",  last_dev['end'])
+        last_date_dev = datetime.fromtimestamp(
+            last_commit_time.committed_date
+        ).strftime('%Y-%m-%d %H:%M:%S')
+        
+        print(
+            '     {user: <25}'.format(user=last_commit_time.committer.email), 
+            " |",  
+            last_date_dev
+        )
             
