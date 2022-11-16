@@ -18,7 +18,7 @@ pip install devpair
 
 ## How it works?
 
-You will work inside a temporary pair branch that in that end all the commits will be squashed to be added to the feature branch.
+You will work inside a temporary pair branch that in the end all the commits will be squashed to be added to the feature branch.
 
 <details>
     <summary>Under the hood</summary>
