@@ -102,6 +102,8 @@ Fork, create a branch from `main` with the pattern `feat/my-feature` and make a 
 We are using [poetry](https://python-poetry.org/) and [pyenv](https://github.com/pyenv/pyenv) to manager all the python versions and dependencies.
 
 ```sh
+# Install all the dependencies
+poetry install
 # Set the version of the `.python-version`
 pyenv local
 # Run all the tests
