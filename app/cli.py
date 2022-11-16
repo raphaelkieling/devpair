@@ -54,4 +54,7 @@ def done(ctx):
 @cli.command()
 @click.pass_context
 def track(ctx):
+    """
+        Show a simple resume of commit counts and last developer.
+    """
     ctx.obj['MANAGER'].run_track()
