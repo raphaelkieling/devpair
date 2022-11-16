@@ -8,6 +8,8 @@
 
 It's a tool to facilitate the pair programming session. Instead of make a lot of `git add, git commit, git push, git pull`, you can make it more quickly only running `devpair start, devpair next`.
 
+Very useful for teams that like to make pair sessions often. If you neve was a driver or a navigator feel free to read [here](https://martinfowler.com/articles/on-pair-programming.html) to have a context.
+
 ## Install
 
 ```
