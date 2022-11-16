@@ -6,12 +6,25 @@
 
 [![Python Test](https://github.com/raphaelkieling/pair/actions/workflows/push.yml/badge.svg)](https://github.com/raphaelkieling/pair/actions/workflows/push.yml)
 
-It's a tool based on [mob](https://mob.sh/). In the end the goal is the same, make the pair programming more easier than make a lot of `git add, git commit, git push, git pull` during a pair session.
+It's a tool to facilitate the pair programming session. Instead of make a lot of `git add, git commit, git push, git pull`, you can make it more quickly only running `devpair start, devpair next`.
 
+## How it works?
+
+Under the hood the `devpair start` will take your current branch and create a copy with the same name but with the prefix `pair`. 
+
+After make your code changes the `devpair next` will add, commit and push your code using an internal commit message.
+
+In the end, we have the `devpair done` that will add, commit, push and delete the branch. Don't worry we will make a squash commit of everything that you did for the current branch.
+
+```diff
+main---------------------------------------->
+    \                                    /
+    my-feature ------------------------->
+       \                              / 
++       pair/my-feature-------------->
+```
 
 ## Install
-
-For now it's only possible to download the version to test.
 
 ```
 pip install devpair
