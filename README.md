@@ -97,24 +97,21 @@ Fork, create a branch from `main` with the pattern `feat/my-feature` and make a 
 
 ### Local env
 
+We are using [poetry](https://python-poetry.org/) and [pyenv](https://github.com/pyenv/pyenv) to manager all the python versions and dependencies.
+
 ```sh
-# Set the version
-pyenv local 3.10.4
+# Set the version of the `.python-version`
+pyenv local
 # Run all the tests
 python -m pytest
-
-# Set the develop
-make local-env
-# Run the devpair
-python -m localdevpair ...
 ```
 
 ### Publishing
 
 ```sh
-# it's using twine $HOME/.pypirc [testpypi]
-make publish-test
+# Build the project
+make build
 
-# it's using twine $HOME/.pypirc [pypi]
+# Publish the project
 make publish
 ```

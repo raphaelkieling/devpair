@@ -10,11 +10,8 @@ clear-dist:
 local-env: clear-dist
 	APP_ENV=local python setup.py develop
 
-dist: clear-dist
-	python setup.py sdist bdist_wheel
+build: clear-dist
+	poetry build
 
-publish-test: dist
-	python -m twine upload --repository testpypi --skip-existing dist/*
-
-publish: dist
-	python -m twine upload --repository pypi --skip-existing dist/*
+publish: build
+	poetry publish
