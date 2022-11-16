@@ -141,40 +141,6 @@ def test_should_delete_and_back_to_main_after_run_done(repo: Repo, logger: mock.
     )
 
 # TODO: Create this test
-@pytest.mark.skip(reason="need to ")
-def test_should_show_track(repo: Repo, logger: mock.Mock):
-    # Initialize the commits
-    # anyfile.txt comes from app/test_data. Check the repo fixture
-    committer = Actor("raphael", "raphael@example.com")
-    commit_date = datetime.datetime(2021, 2, 1,10,9,10, tzinfo=tz.tzlocal())
-    
-    repo.index.add(["anyfile.txt"])
-    repo.index.commit(
-        "Test 1",
-        committer=committer,
-        author_date=commit_date,
-        commit_date=commit_date,
-    )
-
-    committer = Actor("lara", "lara@example.com")
-    commit_date = datetime.datetime(2021, 2, 1,10,10,10, tzinfo=tz.tzlocal())
-
-    repo.index.add(["anyfile2.txt"])
-    repo.index.commit(
-        "Test 2",
-        committer=committer,
-        author_date=commit_date,
-        commit_date=commit_date,
-    )
-
-    m = Manager(
-        path_repository=repo.working_dir,
-        logger=logger
-    )
-
-    m.run_track()
-
-# TODO: Create this test
 @pytest.mark.skip(reason="no way of currently testing this")
 def test_should_delete_and_back_to_main_after_run_done_but_without_remote_branch(repo: Repo, logger: mock.Mock):
     pass
