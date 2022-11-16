@@ -100,7 +100,7 @@ Fork, create a branch from `main` with the pattern `feat/my-feature` and make a 
 
 ### Local env
 
-We are using [poetry](https://python-poetry.org/) and [pyenv](https://github.com/pyenv/pyenv) to manager all the python versions and dependencies.
+We are using [poetry](https://python-poetry.org/) and [pyenv](https://github.com/pyenv/pyenv) to manage all the python versions and dependencies.
 
 ```sh
 # Install all the dependencies
