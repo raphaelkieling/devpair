@@ -134,58 +134,62 @@ class Manager():
         self.logger.info("🌟 Done, continue with the git commit command.")
 
     def run_track(self):
-        # Ge all block of times
-        track_items = []
-        all_track_item = []
-
-        first_commit_committer = None
-        last_commit_time = None
+        all_track_items = []
+        last_commit = None
+        first_commit = None
         for item in list(self.repository.iter_commits(self.repository.active_branch.name, max_count=200)):
-            if last_commit_time is None or last_commit_time.committed_date < item.committed_date:
-                last_commit_time = item
+            # Get last commit
+            if last_commit is None or last_commit.committed_date < item.committed_date:
+                last_commit = item
+
+            # Get first commit
+            if first_commit is None or item.committed_date < first_commit.committed_date:
+                first_commit = item
             
-            if first_commit_committer is None:
-                first_commit_committer = item
-
-            if item.committer.email != first_commit_committer.committer.email:
-                track_items.append({
-                    'committer': first_commit_committer.committer.email,
-                    'start': datetime.utcfromtimestamp(first_commit_committer.committed_date).strftime('%Y-%m-%d %H:%M:%S'),
-                    'end': datetime.utcfromtimestamp(item.committed_date).strftime('%Y-%m-%d %H:%M:%S')
-                })
-
-                first_commit_committer = item
-
-            all_track_item.append({
+            all_track_items.append({
                 'committer': item.committer.email,
                 'start': datetime.utcfromtimestamp(item.committed_date).strftime('%Y-%m-%d %H:%M:%S'),
                 'end': datetime.utcfromtimestamp(item.committed_date).strftime('%Y-%m-%d %H:%M:%S')
             })
 
+        # Last dev
+        print("Last Dev: ")
+        last_date_dev = datetime.fromtimestamp(
+            last_commit.committed_date
+        ).strftime('%Y-%m-%d %H:%M:%S')
+
+        print(
+            '     {user: <25}'.format(user=last_commit.committer.email),
+            " |",
+            last_date_dev
+        )
+
+        # Started
+        print("First Dev: ")
+        first_date_dev = datetime.fromtimestamp(
+            first_commit.committed_date
+        ).strftime('%Y-%m-%d %H:%M:%S')
+
+        print(
+            '     {user: <25}'.format(user=first_commit.committer.email),
+            " |",
+            first_date_dev
+        )
+
+        # Frequence
+        print("Frequence: ")
+
         # Group by user
         track_items_per_committer = {}
-        for track in all_track_item:
+        for track in all_track_items:
             if track['committer'] in track_items_per_committer:
                 track_items_per_committer[track['committer']].append(track)
             else:
                 track_items_per_committer[track['committer']] = [track]
-
-        # Frequence
-        print("Frequence: ")
+        
         for user in track_items_per_committer:
             total = len(track_items_per_committer[user])
             fill_total = [""] * total
             bar = "▇".join(fill_total)
             print('     {user: <25}'.format(user=user), " |", bar, total)
-
-        print("Last Dev: ")
-        last_date_dev = datetime.fromtimestamp(
-            last_commit_time.committed_date
-        ).strftime('%Y-%m-%d %H:%M:%S')
-        
-        print(
-            '     {user: <25}'.format(user=last_commit_time.committer.email), 
-            " |",  
-            last_date_dev
-        )
             
