@@ -53,8 +53,8 @@ def done(ctx):
 
 @cli.command()
 @click.pass_context
-def track(ctx):
+def summary(ctx):
     """
         Show a simple resume of commit counts and last developer.
     """
-    ctx.obj['MANAGER'].run_track()
+    ctx.obj['MANAGER'].run_summary()
