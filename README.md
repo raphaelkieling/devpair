@@ -12,7 +12,7 @@ It's a tool to facilitate the pair programming session. Instead of make a lot of
 
 Under the hood the `devpair start` will take your current branch and create a copy with the same name but with the prefix `pair`. 
 
-After make your code changes the `devpair next` will add, commit and push your code using an internal commit message.
+After make your code changes the `devpair next` will add, commit and push your code using an internal commit message. This step will be more easier to understand checking the [example step by step](#example-of-use)
 
 In the end, we have the `devpair done` that will add, commit, push and delete the branch. Don't worry we will make a squash commit of everything that you did for the current branch.
 
