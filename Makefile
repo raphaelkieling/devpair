@@ -1,5 +1,5 @@
 unit:
-	python -m pytest
+	poetry run pytest --cov=app
 
 setup:
 	python -m pip install -r requirements.txt

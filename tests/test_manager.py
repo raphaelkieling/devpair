@@ -1,6 +1,5 @@
 import pytest
 import os
-import datetime
 import shutil
 from dateutil import tz
 from app.manager import Manager
@@ -10,7 +9,7 @@ from unittest import mock
 @pytest.fixture(name="repo")
 def create_repo(tmpdir: str) -> Repo:
     repo_path = tmpdir / "test_data"
-    shutil.copytree("app/test_data", repo_path)
+    shutil.copytree("tests/test_data", repo_path)
 
     repo =  Repo.init(repo_path)
     repo.active_branch.rename("master")

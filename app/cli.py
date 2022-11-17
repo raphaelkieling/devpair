@@ -4,7 +4,6 @@ from app.manager import Manager
 from loguru import logger
 
 
-
 @click.group()
 @click.option('-v', default=False, help='Debug all the steps', is_flag=True)
 @click.option('-o', default="origin", help='Set the origin for the command')
@@ -57,4 +56,5 @@ def summary(ctx):
     """
         Show a simple resume of commit counts and last developer.
     """
+    
     ctx.obj['MANAGER'].run_summary()
