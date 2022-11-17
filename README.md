@@ -24,8 +24,8 @@ You will work inside a temporary pair branch that in the end all the commits wil
 
 <details>
     <summary>Under the hood</summary>
-  
-Under the hood the `devpair start` will take your current branch and create a copy with the same name but with the prefix `pair` 
+
+Under the hood the `devpair start` will take your current branch and create a copy with the same name but with the prefix `pair`
 
 After make your code changes the `devpair next` will add, commit and push your code using an internal commit message. This step will be more easier to understand checking the [example step by step](#example-of-use)
 
@@ -59,16 +59,16 @@ main $ git commit -m "feat: created hello world feature"
 main $ git push
 
 # Dev B again
-pair/main $ devpair done # just to clear the house. 
+pair/main $ devpair done # just to clear the house.
 
 # Any Dev
 pair/main $ devpair summary # print a summary
 
-Last Dev: 
+Last Dev:
      dev-a@gmail.com  | 2022-11-16 00:40:00
-First Dev: 
+First Dev:
      dev-a@gmail.com  | 2022-11-15 17:55:19
-Frequence: 
+Frequence:
      dev-a@gmail.com  | ▇▇ 2
      dev-b@gmail.com  | ▇ 1
 ```
@@ -102,6 +102,8 @@ Fork, create a branch from `main` with the pattern `feat/my-feature` and make a 
 We are using [poetry](https://python-poetry.org/) and [pyenv](https://github.com/pyenv/pyenv) to manage all the python versions and dependencies.
 
 ```sh
+# Install the pre-commit
+poetry run pre-commit install
 # Install all the dependencies
 poetry install
 # Set the version of the `.python-version`

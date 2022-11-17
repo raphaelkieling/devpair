@@ -25,26 +25,3 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 devpair = "devpair:exec_cli"
-
-[flake8]
-ignore = 'E203, E266, E501, W503, F403, F401'
-max-line-length = 79
-max-complexity = 18
-select = 'B,C,E,F,W,T4,B9'
-
-[tool.black]
-line-length = 79
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-)/
-'''
