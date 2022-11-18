@@ -2,6 +2,14 @@
 
 set -x
 
+if [[ $1 =~ ^v[0-9]+(\.[0-9]+){2,3}$ ]];
+then
+    echo Yes
+else
+    echo "You must follow the format vX.X.X"
+    exit 1
+fi
+
 # Set next version number
 RELEASE=$1
 
