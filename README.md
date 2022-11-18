@@ -4,7 +4,8 @@
 
 ## Dev Pair
 
-[![Python Test](https://github.com/raphaelkieling/pair/actions/workflows/push.yml/badge.svg)](https://github.com/raphaelkieling/pair/actions/workflows/push.yml)<space><space>
+[![Python Test](https://github.com/raphaelkieling/pair/actions/workflows/push.yml/badge.svg)](https://github.com/raphaelkieling/pair/actions/workflows/push.yml)
+![PyPI Version](https://img.shields.io/pypi/v/devpair)
 ![Python Version](https://img.shields.io/pypi/pyversions/devpair)
 
 
