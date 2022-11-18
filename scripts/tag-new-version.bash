@@ -3,7 +3,7 @@
 set -x
 
 # Set next version number
-export RELEASE=$1
+RELEASE=$1
 
 FINAL_VERSION="${RELEASE:1}"
 
@@ -16,5 +16,6 @@ git commit -m "Poetry updated to: $RELEASE"
 git push origin main
 
 # Create tags
-git tag -a $RELEASE -m "Release $FINAL_VERSION"
+git commit --allow-empty -m "Release $RELEASE"
+git tag -a $RELEASE -m "Version $RELEASE"
 git push origin $RELEASE
