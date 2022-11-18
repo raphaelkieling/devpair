@@ -21,6 +21,9 @@ pip install devpair
 
 ### Example of use
 
+> This example only show you the commands, feel free to try with your pair :smile:
+[![asciicast](https://asciinema.org/a/OxDZB38SZdni9XqjizkU0dwzZ.svg)](https://asciinema.org/a/OxDZB38SZdni9XqjizkU0dwzZ)
+
 ```bash
 # Dev A
 main $ devpair start
