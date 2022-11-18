@@ -36,7 +36,7 @@ class Manager:
     def _format_summary_date(self, date):
         return datetime.utcfromtimestamp(date).strftime("%Y-%m-%d %H:%M:%S")
 
-    def run_start(self):
+    def run_start(self, timer=None):
         # Default origin remote
         self.logger.debug("Fetching data")
 
@@ -64,6 +64,10 @@ class Manager:
             self.repository.git.push(
                 "--set-upstream", self._get_remote().name, branch_name
             )
+
+        if timer == isinstance(timer, int):
+            self.timer.start_timer(timer * 60)
+            self.logger.info("Creating a timer!")
 
         if first_time:
             self.logger.info(
