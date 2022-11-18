@@ -88,9 +88,13 @@ def test_should_not_continue_if_run_next_outside_pair_branch(
 ):
     assert repo.active_branch.name == "master"
 
-    m = Manager(path_repository=repo.working_dir, logger=logger)
+    with pytest.raises(SystemExit) as pytest_wrapped_e:
+        m = Manager(path_repository=repo.working_dir, logger=logger)
 
-    m.run_next()
+        m.run_next()
+
+    assert pytest_wrapped_e.type == SystemExit
+    assert pytest_wrapped_e.value.code == 1
 
     logger.error.assert_called_once()
     logger.error.assert_called_with(
@@ -103,9 +107,13 @@ def test_should_not_continue_if_run_done_outside_pair_branch(
 ):
     assert repo.active_branch.name == "master"
 
-    m = Manager(path_repository=repo.working_dir, logger=logger)
+    with pytest.raises(SystemExit) as pytest_wrapped_e:
+        m = Manager(path_repository=repo.working_dir, logger=logger)
 
-    m.run_done()
+        m.run_done()
+
+    assert pytest_wrapped_e.type == SystemExit
+    assert pytest_wrapped_e.value.code == 1
 
     logger.error.assert_called_once()
     logger.error.assert_called_with(
@@ -171,7 +179,17 @@ def test_should_show_simple_summary(repo: Repo, logger, capsys):
 
     result = capsys.readouterr().out.strip()
 
-    assert len(result) > 0
+    expected_output = """
+Last Dev:
+     dev-b@dev.com              | 2017-05-21 00:00:00
+First Dev:
+     dev-b@dev.com              | 2017-05-21 00:00:00
+Frequence:
+     dev-b@dev.com              | ▇ 2
+     dev-a@dev.com              |  1
+""".strip()
+
+    assert result == expected_output
 
 
 # TODO: Create this test
