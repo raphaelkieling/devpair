@@ -7,6 +7,7 @@ on:
 
 jobs:
   checker:
+    name:  Checking  🐍
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -37,7 +38,8 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
 
-      - name: Build and publish to pypi
-        uses: JRubics/poetry-publish@v1.15
+      - name: Publish distribution 📦 to PyPI
+        if: startsWith(github.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          pypi_token: ${{ secrets.PYPI_TOKEN }}
+          password: ${{ secrets.PYPI_TOKEN }}
