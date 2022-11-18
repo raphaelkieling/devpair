@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  checker:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -28,6 +28,14 @@ jobs:
       - name: Test with pytest
         run: |
           poetry run pytest
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: checker
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
 
       - name: Build and publish to pypi
         uses: JRubics/poetry-publish@v1.15
