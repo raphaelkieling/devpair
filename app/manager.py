@@ -6,7 +6,7 @@ from git import Repo
 
 
 class Manager:
-    def __init__(self, logger: loguru.Logger, path_repository=None, origin="origin"):
+    def __init__(self, logger: loguru.logger, path_repository=None, origin="origin"):
         self.PREFIX_CLI = "pair/"
         self.origin = origin
         self.repository = Repo(path_repository, search_parent_directories=True)
@@ -25,7 +25,7 @@ class Manager:
             return False
         return True
 
-    def _format_summary_date(date):
+    def _format_summary_date(self, date):
         return datetime.utcfromtimestamp(date).strftime("%Y-%m-%d %H:%M:%S")
 
     def set_verbose(self, verbose: bool):
@@ -154,8 +154,10 @@ class Manager:
                 last_commit = item
 
             # Get first commit
-            is_before_current_first = item.committed_date < first_commit.committed_date
-            if first_commit is None or is_before_current_first:
+            if (
+                first_commit is None
+                or item.committed_date < first_commit.committed_date
+            ):
                 first_commit = item
 
             commited_date_formatted = self._format_summary_date(item.committed_date)
@@ -169,7 +171,7 @@ class Manager:
             )
 
         # Last dev
-        print("Last Dev: ")
+        print("Last Dev:")
         last_date_dev = self._format_summary_date(last_commit.committed_date)
 
         print(
@@ -179,7 +181,7 @@ class Manager:
         )
 
         # Started
-        print("First Dev: ")
+        print("First Dev:")
         first_date_dev = self._format_summary_date(first_commit.committed_date)
 
         print(
@@ -189,7 +191,7 @@ class Manager:
         )
 
         # Frequence
-        print("Frequence: ")
+        print("Frequence:")
 
         # Group by user
         track_items_per_committer = {}
@@ -201,5 +203,6 @@ class Manager:
 
         for user in track_items_per_committer:
             total = len(track_items_per_committer[user])
-            fill_total = ["▇"] * (total)
-            print("     {user: <25}".format(user=user), " |", fill_total, total)
+            fill_total = [""] * (total)
+            bar = "▇".join(fill_total)
+            print("     {user: <25}".format(user=user), " |", bar, total)

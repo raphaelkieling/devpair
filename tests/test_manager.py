@@ -169,17 +169,17 @@ def test_should_show_simple_summary(repo: Repo, logger, capsys):
 
     m.run_summary()
 
-    result = capsys.readouterr().out
+    result = capsys.readouterr().out.strip()
 
     expected_output = """
-Last Dev:
+Last Dev: 
      dev-b@dev.com              | 2017-05-21 00:00:00
-First Dev:
+First Dev: 
      dev-b@dev.com              | 2017-05-21 00:00:00
-Frequence:
+Frequence: 
      dev-b@dev.com              | ▇ 2
      dev-a@dev.com              |  1
-""".lstrip()
+""".strip()
 
     assert result == expected_output
 
