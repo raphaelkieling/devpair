@@ -27,13 +27,14 @@ def cli(ctx, v, o):
 
 
 @cli.command()
+@click.argument("timer", required=False)
 @click.pass_context
-def start(ctx):
+def start(ctx, timer):
     """
     Start a new session inside the current branch.
     """
 
-    ctx.obj["MANAGER"].run_start()
+    ctx.obj["MANAGER"].run_start(timer)
 
 
 @cli.command()
