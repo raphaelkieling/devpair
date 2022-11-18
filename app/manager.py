@@ -22,8 +22,7 @@ class Manager:
 
         if self.PREFIX_CLI not in self.repository.active_branch.name:
             self.logger.error("You need to be inside a pair/ branch before execute it.")
-            return False
-        return True
+            sys.exit(1)
 
     def _format_summary_date(self, date):
         return datetime.utcfromtimestamp(date).strftime("%Y-%m-%d %H:%M:%S")
@@ -70,9 +69,7 @@ class Manager:
             self.logger.info("Sync done, happy pair programming 😄")
 
     def run_next(self):
-        is_safe = self._is_current_branch_pair()
-        if not is_safe:
-            return
+        self._is_current_branch_pair()
 
         self.logger.debug("Adding all the files")
         self.repository.git.add(A=True)
@@ -92,9 +89,7 @@ class Manager:
             )
 
     def run_done(self):
-        is_safe = self._is_current_branch_pair()
-        if not is_safe:
-            return
+        self._is_current_branch_pair()
 
         # To keep the origin updated
         self.run_next()
@@ -135,9 +130,7 @@ class Manager:
         self.logger.info("🌟 Done, continue with the git commit command.")
 
     def run_summary(self):
-        is_safe = self._is_current_branch_pair()
-        if not is_safe:
-            return
+        self._is_current_branch_pair()
 
         all_track_items = []
         last_commit = None
