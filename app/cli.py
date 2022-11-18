@@ -1,9 +1,11 @@
 import os
 
 import click
-from loguru import logger
+from loguru import logger as LoguruLogger
 
+from app.logger import Logger
 from app.manager import Manager
+from app.timer import Timer
 
 
 @click.group()
@@ -13,11 +15,15 @@ from app.manager import Manager
 def cli(ctx, v, o):
     ctx.ensure_object(dict)
 
-    m = Manager(path_repository=os.getcwd(), logger=logger, origin=o)
+    logger = Logger(logger=LoguruLogger)
+    logger.set_verbose(v)
 
-    m.set_verbose(v)
+    timer = Timer()
 
-    ctx.obj["MANAGER"] = m
+    manager = Manager(path_repository=os.getcwd(), logger=logger, origin=o, timer=timer)
+
+    # It's shared with other commands
+    ctx.obj["MANAGER"] = manager
 
 
 @cli.command()

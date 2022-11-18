@@ -1,17 +1,26 @@
 import sys
 from datetime import datetime
 
-import loguru
 from git import Repo
+
+from app.logger import Logger
+from app.timer import Timer
 
 
 class Manager:
-    def __init__(self, logger: loguru.logger, path_repository=None, origin="origin"):
+    def __init__(
+        self,
+        logger: Logger,
+        timer: Timer = Timer,
+        path_repository=None,
+        origin="origin",
+    ):
         self.PREFIX_CLI = "pair/"
         self.origin = origin
         self.repository = Repo(path_repository, search_parent_directories=True)
         self.path_repository = path_repository
         self.logger = logger
+        self.timer = timer
 
     def _get_remote(self):
         return self.repository.remote(self.origin)
@@ -26,11 +35,6 @@ class Manager:
 
     def _format_summary_date(self, date):
         return datetime.utcfromtimestamp(date).strftime("%Y-%m-%d %H:%M:%S")
-
-    def set_verbose(self, verbose: bool):
-        if not verbose:
-            self.logger.remove()
-            self.logger.add(sys.stderr, level="INFO")
 
     def run_start(self):
         # Default origin remote
