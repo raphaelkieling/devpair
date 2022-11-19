@@ -61,3 +61,12 @@ def test_should_run_timer(fake_start_timer):
 
     assert result.exit_code == 0
     fake_start_timer.assert_called_once_with(33)
+
+
+@mock.patch.object(Manager, "run_cow")
+def test_should_run_cow(fake_run_cow):
+    runner = CliRunner()
+    result = runner.invoke(cli, ["cow"])
+
+    assert result.exit_code == 0
+    fake_run_cow.assert_called_once()
