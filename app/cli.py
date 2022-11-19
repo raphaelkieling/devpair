@@ -28,9 +28,9 @@ def cli(ctx, v, o):
 
 
 @cli.command()
-@click.argument("timer", required=False, type=int)
+@click.argument("time", required=False, type=int)
 @click.pass_context
-def start(ctx, timer):
+def start(ctx, time):
     """
     Start a new session inside the current branch.
 
@@ -39,7 +39,7 @@ def start(ctx, timer):
     voice will say 'Next dev'
     """
 
-    ctx.obj["MANAGER"].run_start(timer)
+    ctx.obj["MANAGER"].run_start(time)
 
 
 @cli.command()
@@ -58,9 +58,19 @@ def done(ctx):
     """
     Finish and put all the work in the original branch.
     """
-    print("SHOOOW!")
-
     ctx.obj["MANAGER"].run_done()
+
+
+@cli.command()
+@click.argument("time", required=False, type=int)
+@click.pass_context
+def timer(ctx, time):
+    """
+    Create a simple timer, it's good when you forget to put
+    a timer value inside the devpair start <TIMER>
+    """
+
+    ctx.obj["MANAGER"].run_timer(time)
 
 
 @cli.command()

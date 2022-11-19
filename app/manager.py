@@ -37,6 +37,13 @@ class Manager:
     def _format_summary_date(self, date):
         return datetime.utcfromtimestamp(date).strftime("%Y-%m-%d %H:%M:%S")
 
+    def run_timer(self, time_in_minutes: int):
+        should_create_timer = isinstance(time_in_minutes, int) and time_in_minutes > 0
+        if should_create_timer:
+            time_to_seconds = time_in_minutes * 60
+            self.timer.start_timer(time_to_seconds)
+            self.logger.info("Created a timer 🕝. Relax, we will let you know!")
+
     def run_start(self, time_in_minutes=None):
         self.logger.debug("Fetching data")
 
@@ -65,12 +72,9 @@ class Manager:
                 "--set-upstream", self._get_remote().name, branch_name
             )
 
-        # If we have a time set, start a timer!
-        if isinstance(time_in_minutes, int) and time_in_minutes > 0:
-            time_to_seconds = time_in_minutes * 60
-            self.timer.start_timer(time_to_seconds)
-            self.logger.info("Creating a timer!")
+        self.run_timer(time_in_minutes)
 
+        # If we have a time set, start a timer!
         if first_time:
             self.logger.info(
                 f"Done, branch '{branch_name}' created, happy pair programming 😄"

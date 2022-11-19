@@ -52,3 +52,12 @@ def test_should_run_done(fake_run_done):
 
     assert result.exit_code == 0
     fake_run_done.assert_called_once()
+
+
+@mock.patch.object(Manager, "run_timer")
+def test_should_run_timer(fake_start_timer):
+    runner = CliRunner()
+    result = runner.invoke(cli, ["timer", "33"])
+
+    assert result.exit_code == 0
+    fake_start_timer.assert_called_once_with(33)

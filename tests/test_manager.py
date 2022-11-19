@@ -1,10 +1,12 @@
 import os
 import time
-import pytest
 from datetime import datetime, timezone
 from unittest import mock
+
+import pytest
 from freezegun import freeze_time
 from git import Actor, Repo
+
 from app.manager import Manager
 
 
@@ -192,6 +194,17 @@ Frequence:
 """.strip()
 
     assert result == expected_output
+
+
+def test_should_run_timer_with_param_number(repo: Repo, logger: mock.Mock):
+    timer_mock = mock.Mock()
+    timer_mock.start_timer = mock.Mock()
+
+    m = Manager(path_repository=repo.working_dir, logger=logger, timer=timer_mock)
+
+    m.run_timer(time_in_minutes=1)
+
+    timer_mock.start_timer.assert_called_once_with(60)
 
 
 # TODO: Create this test
