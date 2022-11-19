@@ -8,7 +8,7 @@
 ![PyPI Version](https://img.shields.io/pypi/v/devpair)
 ![Python Version](https://img.shields.io/pypi/pyversions/devpair)
 
-It's a tool to facilitate the remote pair programming session. Instead of make a lot of `git add, git commit, git push, git pull`, you can make it more quickly only running `devpair start` to start coding and `devpair next` to send the code to another person.
+It's a tool to facilitate the remote pair programming session. Instead of make a lot of `git add, git commit, git push, git pull`, you can make it more quickly only running `devpair start <timer optional>` to start coding and `devpair next` to send the code to another person.
 
 Very useful for teams that like to make pair sessions often. If you never was a driver or a navigator feel free to read [here](https://martinfowler.com/articles/on-pair-programming.html) to have a context.
 
@@ -88,7 +88,8 @@ devpair --help
 - Before the pair programming
   - Define the end of the session. How many time do you want pair?
   - Define the break time.
-- Use a `timer` like:
+- Use a `timer`, maybe `devpair` timer or any other one, the important thing is to keep the pair rotation:
+  - `devpair start <time in minutes>`
   - https://cuckoo.team/
   - https://double-trouble.wielo.co/
   - http://mobtimer.zoeetrope.com/

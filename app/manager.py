@@ -69,7 +69,7 @@ class Manager:
         if isinstance(time_in_minutes, int) and time_in_minutes > 0:
             time_to_seconds = time_in_minutes * 60
             self.timer.start_timer(time_to_seconds)
-            self.logger.info("Creating a timer!")
+            self.logger.info("Created a timer 🕝. Relax, we will let you know!")
 
         if first_time:
             self.logger.info(
