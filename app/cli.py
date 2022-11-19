@@ -81,3 +81,13 @@ def summary(ctx):
     """
 
     ctx.obj["MANAGER"].run_summary()
+
+
+@cli.command()
+@click.pass_context
+def cow(ctx):
+    """
+    Run a cow test.
+    """
+
+    ctx.obj["MANAGER"].run_cow()

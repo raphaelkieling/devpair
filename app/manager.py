@@ -1,6 +1,7 @@
 import sys
 from datetime import datetime
 
+import cowsay
 from git import Repo
 
 from app.logger import Logger
@@ -36,6 +37,10 @@ class Manager:
 
     def _format_summary_date(self, date):
         return datetime.utcfromtimestamp(date).strftime("%Y-%m-%d %H:%M:%S")
+
+    def run_cow(self):
+        self.timer.start_timer(0, "Can you hear me?")
+        cowsay.cow("I'm a cow, can you hear me? If yes, probably you are high.")
 
     def run_timer(self, time_in_minutes: int):
         should_create_timer = isinstance(time_in_minutes, int) and time_in_minutes > 0

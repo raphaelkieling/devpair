@@ -1,4 +1,5 @@
 from unittest import mock
+
 from app.timer import Timer
 
 
@@ -23,7 +24,7 @@ def test_should_execute_unix_timer_sending_correct_time(logger: mock.Mock):
     timer.start_timer(33)
 
     logger.warn.assert_not_called()
-    timer._execute_unix_timer.assert_called_once_with(33)
+    timer._execute_unix_timer.assert_called_once_with(33, "Next dev")
 
 
 @mock.patch("os.system")

@@ -1,5 +1,6 @@
 import os
 import platform
+
 from app.logger import Logger
 
 
@@ -7,10 +8,10 @@ class Timer:
     def __init__(self, logger: Logger) -> None:
         self.logger = logger
 
-    def _execute_unix_timer(self, time: int) -> None:
+    def _execute_unix_timer(self, time: int, message: str) -> None:
         commands = [
             f"sleep {time}",
-            "say Next dev",
+            f"say {message}",
         ]
 
         joined_command = " && ".join(commands)
@@ -20,11 +21,11 @@ class Timer:
     def _get_current_system(self) -> str:
         return platform.system()
 
-    def start_timer(self, time: int):
+    def start_timer(self, time: int, message: str = "Next dev"):
         system = self._get_current_system()
 
         if system == "Darwin" or system == "Linux":
-            self._execute_unix_timer(time)
+            self._execute_unix_timer(time, message)
             return
 
         # TODO: Add support for windows
