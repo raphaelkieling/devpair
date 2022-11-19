@@ -24,6 +24,7 @@ pip install devpair
 - `devpair next` Save everything and send to the next person.
 - `devpair done` Finish and put all the work in the original branch.
 - `devpair summary` Show a simple resume of commit counts and last developer.
+- `devpair cow` It's cow.
 - `devpair timer <time in minutes>` Create a simple timer for any purposal.
 - `devpair --help` I like to have a help some times.
 
