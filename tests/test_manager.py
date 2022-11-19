@@ -1,5 +1,4 @@
 import os
-import shutil
 import time
 from datetime import datetime, timezone
 from unittest import mock
@@ -9,30 +8,6 @@ from freezegun import freeze_time
 from git import Actor, Repo
 
 from app.manager import Manager
-
-
-@pytest.fixture(name="repo")
-def create_repo(tmpdir: str) -> Repo:
-    repo_path = tmpdir / "test_data"
-    shutil.copytree("tests/test_data", repo_path)
-
-    repo = Repo.init(repo_path)
-    repo.active_branch.rename("master")
-
-    # It's added to allow github workflow to create a more realistic git repository
-    repo.config_writer().set_value("user", "name", "myusername").release()
-    repo.config_writer().set_value("user", "email", "myemail").release()
-
-    return repo
-
-
-@pytest.fixture(name="logger")
-def create_logger() -> mock.Mock:
-    logger = mock.Mock()
-    logger.info = mock.Mock()
-    logger.error = mock.Mock()
-    logger.debug = mock.Mock()
-    return logger
 
 
 def test_should_create_new_branch_first_time_on_start_command(
@@ -50,6 +25,35 @@ def test_should_create_new_branch_first_time_on_start_command(
     logger.info.assert_called_with(
         "Done, branch 'pair/master' created, happy pair programming 😄"
     )
+
+
+def test_should_start_the_timer_on_start_command(repo: Repo, logger: mock.Mock):
+    timer_mock = mock.Mock()
+    timer_mock.start_timer = mock.Mock()
+
+    m = Manager(path_repository=repo.working_dir, logger=logger, timer=timer_mock)
+
+    m.run_start(time_in_minutes=1)
+
+    timer_mock.start_timer.assert_called_once_with(60)
+
+
+def test_should_not_call_the_timer_on_start_command_if_none_or_less_than_one(
+    repo: Repo, logger: mock.Mock
+):
+    timer_mock = mock.Mock()
+    timer_mock.start_timer = mock.Mock()
+
+    m = Manager(path_repository=repo.working_dir, logger=logger, timer=timer_mock)
+
+    m.run_start(time_in_minutes=0)
+    timer_mock.start_timer.assert_not_called()
+
+    m.run_start(time_in_minutes=-5)
+    timer_mock.start_timer.assert_not_called()
+
+    m.run_start(time_in_minutes=None)
+    timer_mock.start_timer.assert_not_called()
 
 
 def test_should_detect_repository_even_inside_child_folder(
@@ -190,6 +194,17 @@ Frequence:
 """.strip()
 
     assert result == expected_output
+
+
+def test_should_run_timer_with_param_number(repo: Repo, logger: mock.Mock):
+    timer_mock = mock.Mock()
+    timer_mock.start_timer = mock.Mock()
+
+    m = Manager(path_repository=repo.working_dir, logger=logger, timer=timer_mock)
+
+    m.run_timer(time_in_minutes=1)
+
+    timer_mock.start_timer.assert_called_once_with(60)
 
 
 # TODO: Create this test

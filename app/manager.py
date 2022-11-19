@@ -1,17 +1,27 @@
 import sys
 from datetime import datetime
 
-import loguru
 from git import Repo
+
+from app.logger import Logger
+from app.timer import Timer
 
 
 class Manager:
-    def __init__(self, logger: loguru.logger, path_repository=None, origin="origin"):
+    def __init__(
+        self,
+        logger: Logger,
+        timer: Timer = Timer,
+        path_repository=None,
+        origin="origin",
+    ):
         self.PREFIX_CLI = "pair/"
         self.origin = origin
         self.repository = Repo(path_repository, search_parent_directories=True)
         self.path_repository = path_repository
         self.logger = logger
+        self.timer = timer
+        self.DEFAULT_COMMIT_MESSAGE = "pair - [skip-cli]"
 
     def _get_remote(self):
         return self.repository.remote(self.origin)
@@ -27,19 +37,20 @@ class Manager:
     def _format_summary_date(self, date):
         return datetime.utcfromtimestamp(date).strftime("%Y-%m-%d %H:%M:%S")
 
-    def set_verbose(self, verbose: bool):
-        if not verbose:
-            self.logger.remove()
-            self.logger.add(sys.stderr, level="INFO")
+    def run_timer(self, time_in_minutes: int):
+        should_create_timer = isinstance(time_in_minutes, int) and time_in_minutes > 0
+        if should_create_timer:
+            time_to_seconds = time_in_minutes * 60
+            self.timer.start_timer(time_to_seconds)
+            self.logger.info("Created a timer 🕝. Relax, we will let you know!")
 
-    def run_start(self):
-        # Default origin remote
+    def run_start(self, time_in_minutes=None):
         self.logger.debug("Fetching data")
 
         if self.repository.active_branch.is_remote():
             self._get_remote().fetch()
 
-        first_time = False
+        first_time = False  # Responsible to determine a better message to show when is the first time
 
         # Only create a new branch if the current one hasn't the pair prefix
         if self.PREFIX_CLI not in self.repository.active_branch.name:
@@ -52,7 +63,7 @@ class Manager:
             branch_name = self.repository.active_branch.name
 
         if self.repository.active_branch.is_remote():
-            self.logger.debug("Pulling")
+            self.logger.debug("Seems that already exists. Pulling it!")
             self._get_remote().pull(self.repository.active_branch.name)
 
         if len(self.repository.remotes):
@@ -61,12 +72,16 @@ class Manager:
                 "--set-upstream", self._get_remote().name, branch_name
             )
 
+        self.run_timer(time_in_minutes)
+
+        # If we have a time set, start a timer!
         if first_time:
             self.logger.info(
                 f"Done, branch '{branch_name}' created, happy pair programming 😄"
             )
-        else:
-            self.logger.info("Sync done, happy pair programming 😄")
+            return
+
+        self.logger.info("Sync done, happy pair programming 😄")
 
     def run_next(self):
         self._is_current_branch_pair()
@@ -76,7 +91,7 @@ class Manager:
 
         if len(self.repository.index.diff("HEAD")) >= 1:
             self.logger.debug("Commiting with pair default message, skipping the hooks")
-            self.repository.git.commit("-m", "pair - [skip-cli]", "--no-verify")
+            self.repository.git.commit("-m", self.DEFAULT_COMMIT_MESSAGE, "--no-verify")
         else:
             self.logger.debug("Nothing to commit.")
 
