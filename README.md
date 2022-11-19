@@ -26,7 +26,7 @@ pip install devpair
 
 ```bash
 # Dev A
-main $ devpair start
+main $ devpair start 10 # Will start the new branch with a 10 minutes timer
 pair/main $ echo "hello" > welcome.txt
 pair/main $ devpair next
 

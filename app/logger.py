@@ -1,5 +1,4 @@
 import sys
-
 from loguru import logger
 
 
@@ -28,3 +27,6 @@ class Logger:
 
     def info(self, message) -> None:
         self.logger.info(message)
+
+    def warn(self, message) -> None:
+        self.logger.warn(message)
