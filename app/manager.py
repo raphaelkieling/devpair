@@ -2,6 +2,7 @@ import sys
 from datetime import datetime
 
 import cowsay
+import git
 from git import Repo
 
 from app.logger import Logger
@@ -18,11 +19,21 @@ class Manager:
     ):
         self.PREFIX_CLI = "pair/"
         self.origin = origin
-        self.repository = Repo(path_repository, search_parent_directories=True)
         self.path_repository = path_repository
         self.logger = logger
         self.timer = timer
         self.DEFAULT_COMMIT_MESSAGE = "pair - [skip-cli]"
+        self.repository = self._get_repository()
+
+    def _get_repository(self):
+        try:
+            return Repo(self.path_repository, search_parent_directories=True)
+        except git.exc.NoSuchPathError:
+            self.logger.debug("Path do not exists.")
+            return None
+        except git.exc.InvalidGitRepositoryError:
+            self.logger.debug("It's not a valid repository. Try to run a git init.")
+            return None
 
     def _get_remote(self):
         return self.repository.remote(self.origin)
