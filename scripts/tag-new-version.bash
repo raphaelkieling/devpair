@@ -10,6 +10,9 @@ else
     exit 1
 fi
 
+# Keep update
+git pull origin main
+
 # Set next version number
 RELEASE=$1
 
@@ -27,3 +30,6 @@ git push origin main
 git commit --allow-empty -m "Release $RELEASE"
 git tag -a $RELEASE -m "Version $RELEASE"
 git push origin $RELEASE
+
+# Push again everything
+git push origin main
