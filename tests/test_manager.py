@@ -207,6 +207,17 @@ def test_should_run_timer_with_param_number(repo: Repo, logger: mock.Mock):
     timer_mock.start_timer.assert_called_once_with(60)
 
 
+def test_should_run_timer_even_outside_repository_path(tmpdir, logger: mock.Mock):
+    timer_mock = mock.Mock()
+    timer_mock.start_timer = mock.Mock()
+
+    m = Manager(path_repository=tmpdir, logger=logger, timer=timer_mock)
+
+    m.run_timer(time_in_minutes=1)
+
+    timer_mock.start_timer.assert_called_once_with(60)
+
+
 # TODO: Create this test
 @pytest.mark.skip(reason="no way of currently testing this")
 def test_should_delete_and_back_to_main_after_run_done_but_without_remote_branch(

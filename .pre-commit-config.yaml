@@ -10,6 +10,14 @@ repos:
           - --expand-star-imports
           - --remove-duplicate-keys
           - --remove-unused-variables
+  -   repo: local
+      hooks:
+      -   id: wily
+          name: wily
+          entry: wily diff
+          verbose: true
+          language: python
+          additional_dependencies: [wily]
   - repo: local
     hooks:
       - id: flake8
