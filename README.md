@@ -8,7 +8,7 @@
 ![PyPI Version](https://img.shields.io/pypi/v/devpair)
 ![Python Version](https://img.shields.io/pypi/pyversions/devpair)
 
-It's a tool to facilitate the remote pair programming session based on [mob](https://mob.sh/). Instead of make a lot of `git add, git commit, git push, git pull`, you can make it more quickly only running `devpair start` to start coding and `devpair next` to send the code to another person.
+It's a tool to facilitate the remote pair programming session. Instead of make a lot of `git add, git commit, git push, git pull`, you can make it more quickly only running `devpair start <timer optional>` to start coding and `devpair next` to send the code to another person.
 
 Very useful for teams that like to make pair sessions often. If you never was a driver or a navigator feel free to read [here](https://martinfowler.com/articles/on-pair-programming.html) to have a context.
 
@@ -18,15 +18,22 @@ Very useful for teams that like to make pair sessions often. If you never was a 
 pip install devpair
 ```
 
-### Example of use
+## Commands
 
-> This example only show you the commands, feel free to try with your pair :smile:
+- `devpair start <time in minutes optional>` Start a new session inside the current branch.
+- `devpair next` Save everything and send to the next person.
+- `devpair done` Finish and put all the work in the original branch.
+- `devpair summary` Show a simple resume of commit counts and last developer.
+- `devpair timer <time in minutes>` Create a simple timer for any purposal.
+- `devpair --help` I like to have a help some times.
 
-[![asciicast](https://asciinema.org/a/OxDZB38SZdni9XqjizkU0dwzZ.svg)](https://asciinema.org/a/OxDZB38SZdni9XqjizkU0dwzZ)
+> We recommend to create some alias if you want, like: `dvs` to run `devpair start`, `dvn` to run `devpair next` and `dvd` to run `devpair done`.
+
+## Example of use
 
 ```bash
 # Dev A
-main $ devpair start
+main $ devpair start 10 # Will start the new branch with a 10 minutes timer
 pair/main $ echo "hello" > welcome.txt
 pair/main $ devpair next
 
@@ -36,7 +43,7 @@ pair/main $ cat welcome.txt # shows "hello"
 pair/main $ echo " world" >> welcome.txt
 pair/main $ devpair next
 
-# Dev A again
+# Dev A
 pair/main $ devpair start
 pair/main $ cat welcome.txt # shows "hello world"
 pair/main $ echo "!" >> welcome.txt
@@ -45,29 +52,19 @@ pair/main $ devpair done
 main $ git commit -m "feat: created hello world feature"
 main $ git push
 
-# Dev B again
-pair/main $ devpair done # just to clear the house.
-
-# Any Dev
-pair/main $ devpair summary # print a summary
-
-Last Dev:
-     dev-a@gmail.com  | 2022-11-16 00:40:00
-First Dev:
-     dev-a@gmail.com  | 2022-11-15 17:55:19
-Frequence:
-     dev-a@gmail.com  | ▇▇ 2
-     dev-b@gmail.com  | ▇ 1
+# Dev B
+pair/main $ devpair done # just to come back to the original branch
+main
 ```
 
-## How it works?
+## How it works internally?
 
 You will work inside a temporary pair branch that in the end all the commits will be squashed to be added to the feature branch.
 
 <details>
-    <summary>Under the hood</summary>
+    <summary>MORE INFO PLEASE!</summary>
 
-Under the hood the `devpair start` will take your current branch and create a copy with the same name but with the prefix `pair`
+Ok ok! Under the hood the `devpair start` will take your current branch and create a copy with the same name but with the prefix `pair`
 
 After make your code changes the `devpair next` will add, commit and push your code using an internal commit message. This step will be more easier to understand checking the [example step by step](#example-of-use)
 
@@ -77,18 +74,13 @@ In the end, we have the `devpair done` that will add, commit, push and delete th
 
 [![](https://mermaid.ink/img/pako:eNqNkMEKwjAMhl9l5Dzx3rPgA3jtJbb_1uLajpgiMvbu1oOgDGE5fSTfn0AWcsWDDI1Rz8JzsLlr5UpKUbd8Fc4udBmPwwDWKtjlzxzluDv0wwHuVqpuTybIiH-bP6nEMX_rG5N6apOm-faD5d2zpAEJlkxDj4HrpJZsXpvKVcvlmR0ZlYqe6uxZcYo8CicyA093rC_K-3GZ?type=png)](https://mermaid.live/edit#pako:eNqNkMEKwjAMhl9l5Dzx3rPgA3jtJbb_1uLajpgiMvbu1oOgDGE5fSTfn0AWcsWDDI1Rz8JzsLlr5UpKUbd8Fc4udBmPwwDWKtjlzxzluDv0wwHuVqpuTybIiH-bP6nEMX_rG5N6apOm-faD5d2zpAEJlkxDj4HrpJZsXpvKVcvlmR0ZlYqe6uxZcYo8CicyA093rC_K-3GZ)
 
-if you have any doubt
-
-```
-devpair --help
-```
-
 ### Recommendations
 
 - Before the pair programming
   - Define the end of the session. How many time do you want pair?
   - Define the break time.
-- Use a `timer` like:
+- Use a `timer`, maybe `devpair` timer or any other one, the important thing is to keep the pair rotation:
+  - `devpair start <time in minutes>`
   - https://cuckoo.team/
   - https://double-trouble.wielo.co/
   - http://mobtimer.zoeetrope.com/
@@ -105,14 +97,14 @@ Fork, create a branch from `main` with the pattern `feat/my-feature` and make a 
 We are using [poetry](https://python-poetry.org/) and [pyenv](https://github.com/pyenv/pyenv) to manage all the python versions and dependencies.
 
 ```sh
-# Install the pre-commit
-poetry run pre-commit install
 # Install all the dependencies
 poetry install
+# Install the pre-commit
+poetry run pre-commit install
 # Set the version of the `.python-version`
 pyenv local
 # Run all the tests
-python -m pytest
+make unit
 ```
 
 ### Publishing
