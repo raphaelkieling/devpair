@@ -24,10 +24,11 @@ poetry version $FINAL_VERSION
 # Push
 git add -A
 git commit -m "Poetry updated to: $RELEASE"
-sleep 3
 git push origin main
 
 # Create tags
 git commit --allow-empty -m "Release $RELEASE"
 git tag -a $RELEASE -m "Version $RELEASE"
 git push origin $RELEASE
+
+git push origin main
