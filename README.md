@@ -104,7 +104,7 @@ poetry run pre-commit install
 # Set the version of the `.python-version`
 pyenv local
 # Run all the tests
-python -m pytest
+make unit
 ```
 
 ### Publishing
