@@ -1,8 +1,10 @@
 <div align="center">
-    <img src="./logo.png" width="60px">
+    <img src="https://illustrations.popsy.co/amber/communication.svg" width="200px">
 </div>
 
 ## Dev Pair
+
+<small>Illustration by: [popsy](https://popsy.co/)</small>
 
 [![Python Test](https://github.com/raphaelkieling/pair/actions/workflows/push.yml/badge.svg)](https://github.com/raphaelkieling/pair/actions/workflows/push.yml)
 ![PyPI Version](https://img.shields.io/pypi/v/devpair)
@@ -63,7 +65,7 @@ main
 You will work inside a temporary pair branch that in the end all the commits will be squashed to be added to the feature branch.
 
 <details>
-    <summary>MORE INFO PLEASE!</summary>
+    <summary>More details!</summary>
 
 Ok ok! Under the hood the `devpair start` will take your current branch and create a copy with the same name but with the prefix `pair`
 
@@ -71,11 +73,11 @@ After make your code changes the `devpair next` will add, commit and push your c
 
 In the end, we have the `devpair done` that will add, commit, push and delete the branch. Don't worry we will make a squash commit of everything that you did for the current branch.
 
-</details>
-
 [![](https://mermaid.ink/img/pako:eNqNkMEKwjAMhl9l5Dzx3rPgA3jtJbb_1uLajpgiMvbu1oOgDGE5fSTfn0AWcsWDDI1Rz8JzsLlr5UpKUbd8Fc4udBmPwwDWKtjlzxzluDv0wwHuVqpuTybIiH-bP6nEMX_rG5N6apOm-faD5d2zpAEJlkxDj4HrpJZsXpvKVcvlmR0ZlYqe6uxZcYo8CicyA093rC_K-3GZ?type=png)](https://mermaid.live/edit#pako:eNqNkMEKwjAMhl9l5Dzx3rPgA3jtJbb_1uLajpgiMvbu1oOgDGE5fSTfn0AWcsWDDI1Rz8JzsLlr5UpKUbd8Fc4udBmPwwDWKtjlzxzluDv0wwHuVqpuTybIiH-bP6nEMX_rG5N6apOm-faD5d2zpAEJlkxDj4HrpJZsXpvKVcvlmR0ZlYqe6uxZcYo8CicyA093rC_K-3GZ)
 
-### Recommendations
+</details>
+
+## Recommendations
 
 - Before the pair programming
   - Define the end of the session. How many time do you want pair?
@@ -89,11 +91,11 @@ In the end, we have the `devpair done` that will add, commit, push and delete th
 - The `driver` need to share the screen avoiding to use tools like `vscode live share`, even they are good it can create some hard moments that you want to show the browser or create a quickly diagram. The preference is that the `driver` ever need to share the screen.
 - Antipatterns: https://tuple.app/pair-programming-guide/antipatterns
 
-### Contributing
+## Contributing
 
 Fork, create a branch from `main` with the pattern `feat/my-feature` and make a pull request with your proposal.
 
-### Local env
+## Local env
 
 We are using [poetry](https://python-poetry.org/) and [pyenv](https://github.com/pyenv/pyenv) to manage all the python versions and dependencies.
 
@@ -108,7 +110,7 @@ pyenv local
 make unit
 ```
 
-### Publishing
+## Publishing
 
 ```sh
 sh ./scripts/tag-new-version.bash v0.0.0

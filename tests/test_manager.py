@@ -106,8 +106,20 @@ def test_should_not_continue_if_run_next_outside_pair_branch(
     )
 
 
+# TODO: Finish it
+def test_should_put_co_authors_inside_the_commit_message(repo: Repo, logger: mock.Mock):
+    repo.active_branch.rename("pair/master")
+
+    m = Manager(path_repository=repo.working_dir, logger=logger)
+    m._make_default_commit = mock.Mock()
+
+    m.run_next()
+
+    m._make_default_commit.assert_called_once()
+
+
 def test_should_not_continue_if_run_done_outside_pair_branch(
-    repo: Repo, logger: mock.Mock, capsys
+    repo: Repo, logger: mock.Mock
 ):
     assert repo.active_branch.name == "master"
 
@@ -145,6 +157,31 @@ def test_should_delete_and_back_to_main_after_run_done(repo: Repo, logger: mock.
     assert repo.active_branch.name == "master"
     logger.info.assert_called_once()
     logger.info.assert_called_with("🌟 Done, continue with the git commit command.")
+
+
+def test_should_back_to_main_after_run_done_keeping_the_changes_files(
+    repo: Repo, logger: mock.Mock
+):
+    assert repo.active_branch.name == "master"
+
+    # Initialize the commits in master
+    repo.index.add(["anyfile.txt"])
+    repo.index.commit("Test")
+
+    # Initialize the commits in pair/master
+    repo.active_branch.checkout(b="pair/master")
+    repo.index.add(["anyfile2.txt", "anyfile3.txt"])
+    repo.index.commit("Test 2")
+
+    m = Manager(path_repository=repo.working_dir, logger=logger)
+    m.run_next = mock.Mock()
+    m.run_done()
+
+    assert not repo.bare
+    assert repo.active_branch.name == "master"
+
+    diff = repo.git.execute("git diff --name-only HEAD".split(" "))
+    assert diff == "anyfile2.txt\nanyfile3.txt"
 
 
 @freeze_time("2017-05-21")
