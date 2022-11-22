@@ -59,6 +59,19 @@ class Manager:
     def _is_remote_repository(self):
         return len(self.repository.remotes)
 
+    def _fetch_all(self):
+        if self._is_remote_repository():
+            self.logger.debug("Fetching data")
+            for remote in self.repository.remotes:
+                remote.fetch()
+
+    def _force_pull(self):
+        try:
+            self.logger.debug("Force pulling!")
+            self._get_remote().pull(self.repository.active_branch.name, no_ff=True)
+        except Exception as e:
+            self.logger.debug(e)
+
     def run_cow(self):
         self.timer.start_timer(0, "Can you hear me?")
         cowsay.cow("I'm a cow, can you hear me? If yes, probably you are high.")
@@ -71,59 +84,58 @@ class Manager:
             self.logger.info("Timer created 🕝. Relax, we will let you know!")
 
     def run_start(self, time_in_minutes=None):
-        self.logger.debug("Fetching data")
-
-        if self._is_remote_repository():
-            self._get_remote().fetch()
-
-        first_time = False  # Responsible to determine a better message to show when is the first time
+        # Fetching data
+        self._fetch_all()
 
         # Only create a new branch if the current one hasn't the pair prefix
         if self.PREFIX_CLI not in self.repository.active_branch.name:
-            first_time = True
-            self.logger.debug("Creating branch")
             branch_name = self.PREFIX_CLI + self.repository.active_branch.name
+            self.logger.debug(f"Creating branch: {branch_name}")
             self.repository.git.checkout("-B", branch_name)
         else:
-            self.logger.debug("Reusing same branch")
             branch_name = self.repository.active_branch.name
+            self.logger.debug(f"Branch already exists. Reusing: {branch_name}")
 
-        if self.repository.active_branch.is_remote():
-            self.logger.debug("Seems that already exists. Pulling it!")
-            self._get_remote().pull(self.repository.active_branch.name)
+        # Pulling
+        self._force_pull()
 
+        # Pushing
         if self._is_remote_repository():
             self.logger.debug("Pushing")
             self.repository.git.push(
                 "--set-upstream", self._get_remote().name, branch_name
             )
 
+        # Start time
         self.run_timer(time_in_minutes)
-
-        # If we have a time set, start a timer!
-        if first_time:
-            self.logger.info(
-                f"Done, branch '{branch_name}' created, happy pair programming 😄"
-            )
-            return
 
         self.logger.info("Sync done, happy pair programming 😄")
 
     def run_next(self):
         self._is_current_branch_pair()
 
+        # Fetching
+        self._fetch_all()
+
+        # Add
         self.logger.debug("Adding all the files")
         self.repository.git.add(A=True)
 
+        # Commit
         has_staged_files = len(
             self.repository.git.execute("git diff --cached".split(" "))
         )
+
         if has_staged_files:
             self.logger.debug("Commiting with pair default message, skipping the hooks")
             self._make_default_commit()
         else:
             self.logger.debug("Nothing to commit.")
 
+        # Pulling
+        self._force_pull()
+
+        # Pushing
         if self._is_remote_repository():
             self.logger.debug("Pushing")
             self.repository.git.push(

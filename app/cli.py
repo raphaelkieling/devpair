@@ -12,8 +12,9 @@ from app.timer import Timer
 # TODO: Move these options for each command, it's ugly make devpair -v start 3 instead of devpair start 3 -v
 @click.option("-v", default=False, help="Debug all the steps", is_flag=True)
 @click.option("-o", default="origin", help="Set the origin for the command")
+@click.option("-p", default=os.getcwd(), help="Set the origin for the command")
 @click.pass_context
-def cli(ctx, v, o):
+def cli(ctx, v, o, p):
     ctx.ensure_object(dict)
 
     logger = Logger(logger=LoguruLogger)
@@ -21,7 +22,7 @@ def cli(ctx, v, o):
 
     timer = Timer(logger=logger)
 
-    manager = Manager(path_repository=os.getcwd(), logger=logger, origin=o, timer=timer)
+    manager = Manager(path_repository=p, logger=logger, origin=o, timer=timer)
 
     # It's shared with other commands
     ctx.obj["MANAGER"] = manager

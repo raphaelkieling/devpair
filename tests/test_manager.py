@@ -22,9 +22,7 @@ def test_should_create_new_branch_first_time_on_start_command(
     assert repo.active_branch.name == "pair/master"
 
     logger.info.assert_called_once()
-    logger.info.assert_called_with(
-        "Done, branch 'pair/master' created, happy pair programming 😄"
-    )
+    logger.info.assert_called_with("Sync done, happy pair programming 😄")
 
 
 def test_should_start_the_timer_on_start_command(repo: Repo, logger: mock.Mock):
