@@ -49,6 +49,13 @@ class Manager:
     def _format_summary_date(self, date):
         return datetime.utcfromtimestamp(date).strftime("%Y-%m-%d %H:%M:%S")
 
+    def _make_default_commit(self):
+        self.repository.git.commit(
+            "-m",
+            self.DEFAULT_COMMIT_MESSAGE,
+            "--no-verify",
+        )
+
     def run_cow(self):
         self.timer.start_timer(0, "Can you hear me?")
         cowsay.cow("I'm a cow, can you hear me? If yes, probably you are high.")
@@ -75,7 +82,7 @@ class Manager:
             branch_name = self.PREFIX_CLI + self.repository.active_branch.name
             self.repository.git.checkout("-B", branch_name)
         else:
-            self.logger.debug("Using same branch")
+            self.logger.debug("Reusing same branch")
             branch_name = self.repository.active_branch.name
 
         if self.repository.active_branch.is_remote():
@@ -105,9 +112,13 @@ class Manager:
         self.logger.debug("Adding all the files")
         self.repository.git.add(A=True)
 
-        if len(self.repository.index.diff("HEAD")) >= 1:
+        has_staged_files = len(
+            self.repository.git.execute("git diff --cached".split(" "))
+        )
+        if has_staged_files:
+            print("Entrou aqui")
             self.logger.debug("Commiting with pair default message, skipping the hooks")
-            self.repository.git.commit("-m", self.DEFAULT_COMMIT_MESSAGE, "--no-verify")
+            self._make_default_commit()
         else:
             self.logger.debug("Nothing to commit.")
 
@@ -139,8 +150,10 @@ class Manager:
             self._get_remote().pull()
 
         self.logger.debug("Merging with the pair branch")
-        self.repository.git.merge(pair_branch, no_ff=True, no_commit=True)
+        self.repository.git.execute(f"git merge --squash {pair_branch}".split(" "))
 
+        # Cleaning the house
+        # 1. Deleting remote branchs
         if self.origin in self.repository.remotes:
             for ref in self.repository.remotes[self.origin].refs:
                 if pair_branch not in ref.name:
@@ -151,7 +164,7 @@ class Manager:
                 self.repository.git.push(
                     self._get_remote().name, "--delete", pair_branch
                 )
-
+        # 2. Deleting local branchs
         if pair_branch in self.repository.heads:
             self.logger.debug("Deleting pair branch from the local environment")
             self.repository.heads[pair_branch].delete(
