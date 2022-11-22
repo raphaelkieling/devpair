@@ -56,6 +56,9 @@ class Manager:
             "--no-verify",
         )
 
+    def _is_remote_repository(self):
+        return len(self.repository.remotes)
+
     def run_cow(self):
         self.timer.start_timer(0, "Can you hear me?")
         cowsay.cow("I'm a cow, can you hear me? If yes, probably you are high.")
@@ -70,7 +73,7 @@ class Manager:
     def run_start(self, time_in_minutes=None):
         self.logger.debug("Fetching data")
 
-        if self.repository.active_branch.is_remote():
+        if self._is_remote_repository():
             self._get_remote().fetch()
 
         first_time = False  # Responsible to determine a better message to show when is the first time
@@ -89,7 +92,7 @@ class Manager:
             self.logger.debug("Seems that already exists. Pulling it!")
             self._get_remote().pull(self.repository.active_branch.name)
 
-        if len(self.repository.remotes):
+        if self._is_remote_repository():
             self.logger.debug("Pushing")
             self.repository.git.push(
                 "--set-upstream", self._get_remote().name, branch_name
@@ -121,8 +124,7 @@ class Manager:
         else:
             self.logger.debug("Nothing to commit.")
 
-        repository_has_remote = len(self.repository.remotes)
-        if repository_has_remote:
+        if self._is_remote_repository():
             self.logger.debug("Pushing")
             self.repository.git.push(
                 "--set-upstream",
