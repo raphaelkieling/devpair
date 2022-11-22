@@ -106,18 +106,6 @@ def test_should_not_continue_if_run_next_outside_pair_branch(
     )
 
 
-# TODO: Finish it
-def test_should_put_co_authors_inside_the_commit_message(repo: Repo, logger: mock.Mock):
-    repo.active_branch.rename("pair/master")
-
-    m = Manager(path_repository=repo.working_dir, logger=logger)
-    m._make_default_commit = mock.Mock()
-
-    m.run_next()
-
-    m._make_default_commit.assert_called_once()
-
-
 def test_should_not_continue_if_run_done_outside_pair_branch(
     repo: Repo, logger: mock.Mock
 ):
@@ -253,11 +241,3 @@ def test_should_run_timer_even_outside_repository_path(tmpdir, logger: mock.Mock
     m.run_timer(time_in_minutes=1)
 
     timer_mock.start_timer.assert_called_once_with(60)
-
-
-# TODO: Create this test
-@pytest.mark.skip(reason="no way of currently testing this")
-def test_should_delete_and_back_to_main_after_run_done_but_without_remote_branch(
-    repo: Repo, logger: mock.Mock
-):
-    pass
