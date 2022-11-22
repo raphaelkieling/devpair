@@ -50,23 +50,11 @@ class Manager:
         return datetime.utcfromtimestamp(date).strftime("%Y-%m-%d %H:%M:%S")
 
     def _make_default_commit(self):
-        final_message = self.DEFAULT_COMMIT_MESSAGE
-        # list_of_commits = list(
-        #     self.repository.iter_commits(
-        #         self.repository.active_branch.name, max_count=200
-        #     )
-        # )
-
-        # TODO: To finish
-        # for commit in list_of_commits:
-        #     final_message = f"\n Co-Authored-By: {commit.committer} <{commit.}>"
-
         self.repository.git.commit(
             "-m",
-            final_message,
+            self.DEFAULT_COMMIT_MESSAGE,
             "--no-verify",
         )
-        self.repository.commit()
 
     def run_cow(self):
         self.timer.start_timer(0, "Can you hear me?")
