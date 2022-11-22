@@ -4,8 +4,6 @@
 
 ## Dev Pair
 
-<small>Illustration by: [popsy](https://popsy.co/)</small>
-
 [![Python Test](https://github.com/raphaelkieling/pair/actions/workflows/push.yml/badge.svg)](https://github.com/raphaelkieling/pair/actions/workflows/push.yml)
 ![PyPI Version](https://img.shields.io/pypi/v/devpair)
 ![Python Version](https://img.shields.io/pypi/pyversions/devpair)
@@ -115,3 +113,5 @@ make unit
 ```sh
 sh ./scripts/tag-new-version.bash v0.0.0
 ```
+
+<sup>Illustration by: [popsy](https://popsy.co/)</sup>
