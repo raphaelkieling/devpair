@@ -158,12 +158,20 @@ class Manager:
         )
 
         self.logger.debug("Coming back to the original branch")
-        self.repository.git.checkout(branch_without_prefix)
+        try:
+            self.repository.git.checkout(branch_without_prefix)
+        except Exception as e:
+            self.logger.debug(e)
+            self.logger.error(
+                "Seems that the original branch do not exist locally of remotely. Aborting"
+            )
+            return
 
-        if self.repository.active_branch.is_remote():
-            self.logger.debug("Fetching and pulling the data")
-            self._get_remote().fetch()
-            self._get_remote().pull()
+        # Fetching
+        self._fetch_all()
+
+        # Pulling
+        self._force_pull()
 
         self.logger.debug("Merging with the pair branch")
         self.repository.git.execute(f"git merge --squash {pair_branch}".split(" "))
