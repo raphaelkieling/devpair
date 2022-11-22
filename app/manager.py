@@ -65,7 +65,7 @@ class Manager:
         if should_create_timer:
             time_to_seconds = time_in_minutes * 60
             self.timer.start_timer(time_to_seconds)
-            self.logger.info("Created a timer 🕝. Relax, we will let you know!")
+            self.logger.info("Timer created 🕝. Relax, we will let you know!")
 
     def run_start(self, time_in_minutes=None):
         self.logger.debug("Fetching data")
@@ -116,19 +116,21 @@ class Manager:
             self.repository.git.execute("git diff --cached".split(" "))
         )
         if has_staged_files:
-            print("Entrou aqui")
             self.logger.debug("Commiting with pair default message, skipping the hooks")
             self._make_default_commit()
         else:
             self.logger.debug("Nothing to commit.")
 
-        if self.repository.active_branch.is_remote():
+        repository_has_remote = len(self.repository.remotes)
+        if repository_has_remote:
             self.logger.debug("Pushing")
             self.repository.git.push(
                 "--set-upstream",
                 self._get_remote().name,
                 self.repository.active_branch.name,
             )
+
+        self.logger.info("👆 Sync done.")
 
     def run_done(self):
         self._is_current_branch_pair()

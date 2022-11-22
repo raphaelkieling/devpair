@@ -143,8 +143,7 @@ def test_should_delete_and_back_to_main_after_run_done(repo: Repo, logger: mock.
 
     assert not repo.bare
     assert repo.active_branch.name == "master"
-    logger.info.assert_called_once()
-    logger.info.assert_called_with("🌟 Done, continue with the git commit command.")
+    logger.info.assert_called()
 
 
 def test_should_back_to_main_after_run_done_keeping_the_changes_files(
