@@ -41,7 +41,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_PARALLEL: true
 
-      - name: Converage finished
+      - name: Coverage finished
         run: |
           coveralls --service=github --finish
         env:

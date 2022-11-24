@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://illustrations.popsy.co/amber/communication.svg" width="200px">
+    <img src="./logo.svg" width="200px">
 </div>
 
 ## Dev Pair
