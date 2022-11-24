@@ -7,6 +7,7 @@
 [![Python Test](https://github.com/raphaelkieling/pair/actions/workflows/push.yml/badge.svg)](https://github.com/raphaelkieling/pair/actions/workflows/push.yml)
 ![PyPI Version](https://img.shields.io/pypi/v/devpair)
 ![Python Version](https://img.shields.io/pypi/pyversions/devpair)
+[![Coverage Status](https://coveralls.io/repos/github/raphaelkieling/pair/badge.svg?branch=main)](https://coveralls.io/github/raphaelkieling/pair?branch=main)
 
 It's a tool to facilitate the remote pair programming session. Instead of make a lot of `git add, git commit, git push, git pull`, you can make it more quickly only running `devpair start <timer optional>` to start coding and `devpair next` to send the code to another person.
 
@@ -99,10 +100,8 @@ We are using [poetry](https://python-poetry.org/) and [pyenv](https://github.com
 
 ```sh
 # Install all the dependencies
-poetry install
-# Install the pre-commit
-poetry run pre-commit install
-# Set the version of the `.python-version`
+poetry setup
+# Set the version of the `.python-version` (if applicable for you)
 pyenv local
 # Run all the tests
 make unit

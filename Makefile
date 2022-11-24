@@ -2,10 +2,13 @@ unit:
 	poetry run pytest --cov=app
 
 setup:
-	python -m pip install -r requirements.txt
+	poetry install && poetry run pre-commit install
 
 build: clear-dist
 	poetry build
 
 publish: build
 	poetry publish
+
+coverage:
+	poetry run coverage run --source=app -m pytest tests/
