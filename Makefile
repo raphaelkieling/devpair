@@ -1,5 +1,5 @@
 unit:
-	poetry run pytest --cov=app
+	poetry run pytest --cov=app --cov-report term-missing
 
 setup:
 	poetry install && poetry run pre-commit install
