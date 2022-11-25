@@ -28,4 +28,5 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-devpair = "devpair:exec_cli"
+devpair = "app:main.exec_cli"
+devtest = { callable = "app:main.exec_cli" }
