@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "devpair"
-version = "1.1.17"
+version = "1.1.18"
 description = "Pair script that manage a pair programming session using git."
 authors = ["raphael.kieling <raphael.kieling@telus.com>"]
 license = "MIT"
