@@ -100,11 +100,11 @@ We are using [poetry](https://python-poetry.org/) and [pyenv](https://github.com
 
 ```sh
 # Install all the dependencies
-poetry setup
-# Set the version of the `.python-version` (if applicable for you)
-pyenv local
+make setup
 # Run all the tests
 make unit
+# Testing the devpair locally
+make local
 ```
 
 ## Publishing

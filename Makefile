@@ -10,5 +10,8 @@ build: clear-dist
 publish: build
 	poetry publish
 
+local:
+	poetry install && poetry shell
+
 coverage:
 	poetry run coverage run --source=app -m pytest tests/
