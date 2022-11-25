@@ -6,6 +6,11 @@ authors = ["raphael.kieling <raphael.kieling@telus.com>"]
 license = "MIT"
 readme = "README.md"
 packages = [{include = "app"}]
+homepage = "https://github.com/raphaelkieling/devpair"
+repository = "https://github.com/raphaelkieling/devpair"
+keywords = ["devpair", "pair programming", "mob programming", "pair"]
+include = ["LICENSE"]
+
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -24,8 +29,8 @@ freezegun = "^1.2.2"
 wily = "^1.24.0"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools >= 40.6.0", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [tool.poetry.scripts]
 devpair = "app:main.exec_cli"
