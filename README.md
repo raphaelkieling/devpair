@@ -15,7 +15,7 @@ Very useful for teams that like to make pair sessions often. If you never was a 
 
 ## Install
 
-```
+```sh
 # If you have pip 🐍
 pip install devpair
 
