@@ -1,6 +1,9 @@
 #!/bin/bash
 
+# Show all commands
 set -x
+# Stop if have any error
+set -e
 
 if [[ $1 =~ ^v[0-9]+(\.[0-9]+){2,3}$ ]];
 then
