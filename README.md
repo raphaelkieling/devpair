@@ -16,7 +16,11 @@ Very useful for teams that like to make pair sessions often. If you never was a 
 ## Install
 
 ```
+# If you have pip 🐍
 pip install devpair
+
+# If you prefer homebrew (MacOS) 🍎
+brew install raphaelkieling/devpair/devpair
 ```
 
 ## Commands
