@@ -8,7 +8,7 @@
 ![PyPI Version](https://img.shields.io/pypi/v/devpair)
 ![Python Version](https://img.shields.io/pypi/pyversions/devpair)
 [![Coverage Status](https://coveralls.io/repos/github/raphaelkieling/pair/badge.svg?branch=main)](https://coveralls.io/github/raphaelkieling/pair?branch=main)
-[![CodeFactor](https://www.codefactor.io/repository/github/raphaelkieling/terun-go/badge)](https://www.codefactor.io/repository/github/raphaelkieling/terun-go)
+[![CodeFactor](https://www.codefactor.io/repository/github/raphaelkieling/devpair/badge)](https://www.codefactor.io/repository/github/raphaelkieling/devpair)
 
 It's a tool to facilitate the remote pair programming session. Instead of make a lot of `git add, git commit, git push, git pull`, you can make it more quickly only running `devpair start <timer optional>` to start coding and `devpair next` to send the code to another person.
 
