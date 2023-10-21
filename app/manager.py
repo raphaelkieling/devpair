@@ -3,7 +3,7 @@ from datetime import datetime
 
 import cowsay
 import git
-from git import Repo
+from git import GitCommandError, Repo
 
 from app.logger import Logger
 from app.timer import Timer
@@ -102,9 +102,18 @@ class Manager:
         # Pushing
         if self._is_remote_repository():
             self.logger.debug("Pushing")
-            self.repository.git.push(
-                "--set-upstream", self._get_remote().name, branch_name
-            )
+            try:
+                self.repository.git.push(
+                    "--set-upstream", self._get_remote().name, branch_name
+                )
+            except GitCommandError as e:
+                if "ERROR: Permission" in e.stderr:
+                    self.logger.error(
+                        "You do not have permission to push to this repository."
+                    )
+                    exit(1)
+                else:
+                    raise e
 
         # Start time
         self.run_timer(time_in_minutes)
